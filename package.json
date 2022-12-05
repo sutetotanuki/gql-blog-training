@@ -1,0 +1,12 @@
+{
+  "name": "second",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@nestjs/cli": "^9.1.5",
+    "@nestjs/graphql": "9.1.2",
+    "apollo-server-express": "^3.11.1",
+    "graphql": "^15"
+  }
+}
