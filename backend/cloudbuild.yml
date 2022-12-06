@@ -26,7 +26,7 @@ steps:
     secretEnv: ['DATABASE_URL']
     dir: 'blog-deploy-cloud-run/backend'
     waitFor: ['push-backend']
-  - timeout: '2000s'
+timeout: '2000s'
 substitutions:
   _REGION: by-terraform
   _CLOUDSQL_INSTANCE_FULL_NAME: by-terraform
