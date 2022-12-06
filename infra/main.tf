@@ -28,12 +28,12 @@ module "cloud-sql" {
   target_region = var.primary_region
 }
 
-# module "cloud-build" {
-#   source                     = "./modules/cloud-build"
-#   gcp_project_id             = var.gcp_project_id
-#   region                     = var.primary_region
-#   cloudsql_instance_fullname = module.cloud-sql.blog_training_db_connection_name
-#   backend_app_name           = local.backend_app_name
-#   github_owner               = "sutetotanuki"
-#   github_app_repo_name       = "gql-blog-training"
-# }
+module "cloud-build" {
+  source                     = "./modules/cloud-build"
+  gcp_project_id             = var.gcp_project_id
+  region                     = var.primary_region
+  cloudsql_instance_fullname = module.cloud-sql.blog_training_db_connection_name
+  backend_app_name           = local.backend_app_name
+  github_owner               = "sutetotanuki"
+  github_app_repo_name       = "gql-blog-training"
+}
