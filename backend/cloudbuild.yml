@@ -8,13 +8,14 @@ steps:
       - '--tag=$_ARTIFACT_REPOSITORY_IMAGE_NAME:latest'
       - --cache-from=$_ARTIFACT_REPOSITORY_IMAGE_NAME:latest'
       - .
+    dir: 'backend'
   - id: push-backend
     name: 'docker'
     args:
       - push
       - --all-tags
       - $_ARTIFACT_REPOSITORY_IMAGE_NAME
-    dir: 'blog-deploy-cloud-run/backend'
+    dir: 'backend'
     waitFor:
       - 'build-backend'
   - id: 'apply-migrations'
@@ -24,7 +25,7 @@ steps:
       - '-c'
       - '/buildstep/execute.sh -i $_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA -e DATABASE_URL=$$DATABASE_URL -s $_CLOUDSQL_INSTANCE_FULL_NAME -- yarn prisma migrate deploy'
     secretEnv: ['DATABASE_URL']
-    dir: 'blog-deploy-cloud-run/backend'
+    dir: 'backend'
     waitFor: ['push-backend']
 timeout: '2000s'
 substitutions:
