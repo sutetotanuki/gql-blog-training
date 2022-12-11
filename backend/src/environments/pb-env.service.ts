@@ -30,7 +30,7 @@ export class PbEnv {
   }
 
   get Port(): number {
-    return this.configService.get('PORT');
+    return this.configService.get('PORT', { infer: true });
   }
 
   get DatabaseUrl(): string {

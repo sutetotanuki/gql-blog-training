@@ -1,7 +1,7 @@
 import {
   IsEnum,
   IsNotEmpty,
-  IsNumber,
+  IsNumberString,
   IsString,
   validateSync,
 } from 'class-validator';
@@ -22,7 +22,7 @@ export class EnvValidator {
   @IsEnum(NodeEnvEnum)
   NODE_ENV: NodeEnvEnum;
 
-  @IsNumber()
+  @IsNumberString()
   PORT = 3333; // デフォルト値も指定できる
 
   @IsNotEmpty()
