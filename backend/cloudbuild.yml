@@ -27,6 +27,37 @@ steps:
     secretEnv: ['DATABASE_URL']
     dir: 'backend'
     waitFor: ['push-backend']
+  - id: deploy-backend
+    name: grc.io/cloud-builders/gcloud
+    args:
+      - beta
+      - run
+      - deploy
+      - training-backend
+      - --quiet
+      - --platform=managed
+      - --project=$PROJECT_ID
+      - --region=$_REGION
+      - --image=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
+      - --image=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
+      - --service-account=$_SERVICE_ACCOUNT
+      - --add-cloudsql-instances=$_CLOUDSQL_INSTANCE_FULL_NAME
+      - --revision-suffix=$SHORT_SHA
+      - --tag=latest
+      - --concurrency=40
+      - --cpu=1
+      - --memory=512Mi
+      - --max-instances=3
+      - --min-instances=0
+      - --no-use-http2
+      - --allow-unauthenticated
+      - --no-cpu-throttling
+      - --ingress=all
+      - --set-env-vars=GCP_PROJECT_ID=$PROJECT_ID
+      - --update-secrets=DATABASE_URL=BLOG_TRAINING_DATABASE_URL:latest
+    dir: 'backend'
+    waitFor:
+      - 'apply-migrations'
 timeout: '2000s'
 substitutions:
   _REGION: by-terraform
