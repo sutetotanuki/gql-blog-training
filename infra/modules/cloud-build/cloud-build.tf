@@ -23,5 +23,6 @@ resource "google_cloudbuild_trigger" "deploy-backend-training-app" {
     "_REGION"                         = var.region
     "_CLOUDSQL_INSTANCE_FULL_NAME"    = var.cloudsql_instance_fullname
     "_ARTIFACT_REPOSITORY_IMAGE_NAME" = "${var.region}-docker.pkg.dev/${var.gcp_project_id}/${var.backend_app_name}/blog-backend"
+    "_SERVICE_ACCOUNT"                = "blog-training@${var.gcp_project_id}.iam.gserviceaccount.com"
   }
 }
