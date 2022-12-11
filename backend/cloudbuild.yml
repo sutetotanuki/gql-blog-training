@@ -28,7 +28,7 @@ steps:
     dir: 'backend'
     waitFor: ['push-backend']
   - id: deploy-backend
-    name: grc.io/cloud-builders/gcloud
+    name: gcr.io/cloud-builders/gcloud
     args:
       - beta
       - run
