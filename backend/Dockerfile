@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:16
+FROM node:16 AS builder
 
 # Prisma CLIをdevDependenciesでインストールしたため
 ENV NODE_ENV=development
