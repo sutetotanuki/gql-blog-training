@@ -25,6 +25,6 @@ COPY package.json ./
 COPY yarn.lock ./
 COPY prisma ./prisma
 RUN yarn install
-COPY --from=builder /app/src ./dist
-COPY --from=builder /app/src/prisma ./prisma
+COPY --from=builder /app/dist/src ./dist
+COPY --from=builder /app/dist/prisma ./prisma
 CMD ["node", "dist/src/main.js"]
