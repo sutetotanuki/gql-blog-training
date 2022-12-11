@@ -40,7 +40,6 @@ steps:
       - --region=$_REGION
       - --image=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
       - --image=$_ARTIFACT_REPOSITORY_IMAGE_NAME:$SHORT_SHA
-      - --service-account=$_SERVICE_ACCOUNT
       - --add-cloudsql-instances=$_CLOUDSQL_INSTANCE_FULL_NAME
       - --revision-suffix=$SHORT_SHA
       - --tag=latest
