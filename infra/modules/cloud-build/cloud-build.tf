@@ -3,6 +3,7 @@ variable "github_app_repo_name" {}
 variable "region" {}
 variable "gcp_project_id" {}
 variable "backend_app_name" {}
+variable "frontend_app_name" {}
 variable "cloudsql_instance_fullname" {}
 
 resource "google_cloudbuild_trigger" "deploy-backend-training-app" {
@@ -24,5 +25,24 @@ resource "google_cloudbuild_trigger" "deploy-backend-training-app" {
     "_CLOUDSQL_INSTANCE_FULL_NAME"    = var.cloudsql_instance_fullname
     "_ARTIFACT_REPOSITORY_IMAGE_NAME" = "${var.region}-docker.pkg.dev/${var.gcp_project_id}/${var.backend_app_name}/blog-backend"
     "_SERVICE_ACCOUNT"                = "blog-training@${var.gcp_project_id}.iam.gserviceaccount.com"
+  }
+}
+
+resource "google_cloudbuild_trigger" "deploy-frontend-traning-app" {
+  name        = "deploy-frontend-training-app"
+  description = "Next.jsアプリを Cloud Run へ deploy する"
+  github {
+    owner = var.github_owner
+    name  = var.github_app_repo_name
+    push {
+      branch = "^main$"
+    }
+  }
+  included_files = ["frontend/**"]
+  filename       = "frontend/cloudbuild.yml"
+  substitutions = {
+    _REGION                         = var.region
+    _SERVICE_ACCOUNT                = var.cloud_run_service_account
+    _ARTIFACT_REPOSITORY_IMAGE_NAME = "${var.region}-docker.pkg.dev/${var.gcp_project_id}/${var.frontend_app_name}/blog-frontend"
   }
 }

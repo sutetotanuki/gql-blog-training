@@ -34,6 +34,7 @@ module "cloud-build" {
   region                     = var.primary_region
   cloudsql_instance_fullname = module.cloud-sql.blog_training_db_connection_name
   backend_app_name           = local.backend_app_name
+  frontend_app_name          = local.frontend_app_name
   github_owner               = "sutetotanuki"
   github_app_repo_name       = "gql-blog-training"
 }
