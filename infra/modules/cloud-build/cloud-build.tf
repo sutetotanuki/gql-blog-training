@@ -42,7 +42,7 @@ resource "google_cloudbuild_trigger" "deploy-frontend-traning-app" {
   filename       = "frontend/cloudbuild.yml"
   substitutions = {
     _REGION                         = var.region
-    _SERVICE_ACCOUNT                = var.cloud_run_service_account
+    _SERVICE_ACCOUNT                = "blog-training@${var.gcp_project_id}.iam.gserviceaccount.com"
     _ARTIFACT_REPOSITORY_IMAGE_NAME = "${var.region}-docker.pkg.dev/${var.gcp_project_id}/${var.frontend_app_name}/blog-frontend"
   }
 }
